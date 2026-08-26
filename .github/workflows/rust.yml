@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Add wasm32-wasip2 target
+      run: rustup target add wasm32-wasip2
     - name: Build
       run: cargo build --target=wasm32-wasip2 --release
       
