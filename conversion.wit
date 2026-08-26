@@ -1,0 +1,5 @@
+package component:wcmarkdown2pdf@1.0.0;
+
+world conversion {
+  export generate: func(input: string) -> result<list<u8>, string>;
+}

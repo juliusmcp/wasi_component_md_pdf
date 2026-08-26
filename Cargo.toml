@@ -1,0 +1,13 @@
+[package]
+name = "wasi_component_md_pdf"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+
+[dependencies]
+markdown2pdf = "1.6.0"
+wit-bindgen = "0.57.1"
+
