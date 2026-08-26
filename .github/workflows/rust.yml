@@ -20,13 +20,15 @@ jobs:
       run: rustup target add wasm32-wasip2
     - name: Build
       run: cargo build --target=wasm32-wasip2 --release
-      
-  wasi:
-    runs-on: ubuntu-latest
-    name: Setup wasmtime
-    steps:
-      - name: Setup `wasmtime`
-        uses: bytecodealliance/actions/wasmtime/setup@v1
+    - name: Setup `wasmtime`
+      uses: bytecodealliance/actions/wasmtime/setup@v1
+    - name: Run wasm component
+      run: |
+        mkdir -p artifacts
+        wasmtime run --invoke 'generate("# Test document\n\nThis is a generated PDF.")' target/wasm32-wasip2/release/wasi_component_md_pdf.wasm > artifacts/generated.pdf
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-pdf
+        path: artifacts/generated.pdf
 
-      - name: Run `wasmtime version`
-        run: "wasmtime --version"  
