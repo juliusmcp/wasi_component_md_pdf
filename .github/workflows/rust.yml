@@ -1,4 +1,4 @@
-name: Rust
+name: Test Github Action
 
 on:
   push:
