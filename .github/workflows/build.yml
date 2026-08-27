@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
@@ -9,18 +10,20 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Add wasm32-wasip2 target
-      run: rustup target add wasm32-wasip2
-    - name: Build
-      run: cargo build --target=wasm32-wasip2 --release
-   
-    - name: Upload wasi artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: wasi_comp_md_pdf.wasm
-        path: artifacts/generated.pdf
+      - uses: actions/checkout@v4
+
+      - name: Add wasm32-wasip2 target
+        run: rustup target add wasm32-wasip2
+
+      - name: Build
+        run: cargo build --target wasm32-wasip2 --release
+
+      - name: Upload wasi artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wasi_component_md_pdf.wasm
+          path: target/wasm32-wasip2/release/wasi_component_md_pdf.wasm
+          if-no-files-found: error
